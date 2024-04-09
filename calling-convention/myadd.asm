@@ -3,7 +3,6 @@ global myadd
 section .text
 
 myadd:
-    sub rsp, 8
     push rbx
     push rbp
 
@@ -15,5 +14,4 @@ myadd:
 
     pop rbp
     pop rbx
-    add rsp, 8
     ret

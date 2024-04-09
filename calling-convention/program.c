@@ -1,4 +1,5 @@
-// gcc program.c -c
+// nasm -f elf64 -o myadd.o myadd.asm
+// gcc -o out program.c myadd.o
 
 #include <stdio.h>
 #include <stdlib.h>
