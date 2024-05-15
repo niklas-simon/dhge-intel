@@ -1,18 +1,37 @@
-DEST_C=main.c
-DEST_ASM=func.asm
+SRC_C=main.c
+SRC_ASM=func.asm
 
-TARGET_ASM=func.o
-TARGET=prog
+DEST_ASM=func.o
+DEST_C=main.o
+DEST=prog
 
-compile_asm:
-	nasm -felf32 ${DEST_ASM} -o ${TARGET_ASM}
+ASM_COMPILER=nasm
+ASM_ARGS=-felf32
 
-compile: compile_asm
-	gcc ${DEST_C} func.o -o ${TARGET} -m32
+C_COMPILER=gcc
+C_ARGS=-m32 -Wall -c
 
+LINKER=gcc
+LINKER_ARGS=-m32
+
+RUN_ARGS=2 3
+
+${DEST_ASM}:
+	${ASM_COMPILER} ${ASM_ARGS} ${SRC_ASM} -o ${DEST_ASM}
+
+${DEST_C}:
+	${C_COMPILER} ${C_ARGS} -o ${DEST_C} ${SRC_C}
+
+${DEST}: ${DEST_C} ${DEST_ASM}
+	${LINKER} ${LINKER_ARGS} -o ${DEST} ${DEST_ASM} ${DEST_C}
+
+# tags as non-file target
+.PHONY: clean
 clean:
-	rm ${TARGET_ASM}
-	rm ${TARGET}
+	rm ${DEST_C} &\
+	rm ${DEST_ASM} &\
+	rm ${DEST}
 
-run: compile
-	./${TARGET} 2 3
+.PHONY: run
+run: ${DEST}
+	./${DEST} ${RUN_ARGS}
