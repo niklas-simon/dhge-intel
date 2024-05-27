@@ -6,7 +6,7 @@
 long myadd(long a, long b) {
     long c = 0;
     asm(
-        "mov %%rax, %1;"
+        "mov rax, %1;"
         "add rbx, rax;"
         "inc rbx;"
         "mov %0, rbx;"

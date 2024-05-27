@@ -1,3 +1,6 @@
 {
-    "C_Cpp.default.compilerPath": "/home/niklas/.local/bin/apt_gcc"
+    "C_Cpp.default.compilerPath": "/home/niklas/.local/bin/apt_gcc",
+    "files.associations": {
+        "stdio.h": "c"
+    }
 }
